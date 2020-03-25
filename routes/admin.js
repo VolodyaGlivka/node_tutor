@@ -1,11 +1,10 @@
 const express = require('express');
-// return directory where index.js is located
 const path = require('path');
 const rootDir = require('../utils/path');
 const router = express.Router();
 
 // controllers
-const BookController = require('../controllers/books');
+const BookController = require('../controllers/book');
 const AuthController = require('../controllers/auth');
 
 router.get('/books', BookController.getBooks);
@@ -16,6 +15,8 @@ router.post('/register', AuthController.register);
 router.post('/authenticate', AuthController.auth);
 
 router.get('/books/:id', BookController.getBook);
+
+router.delete('/books/:id', BookController.deleteBook);
 
 router.get('/test', (req, res) => {
   // __dirname give us folder where current file is located

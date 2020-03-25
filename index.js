@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
+const ErrorController = require('./controllers/error');
 const Router = require('./routes/admin');
+
+const connection = require('./utils/database');
 
 app.use(bodyParser.json());
 app.use(
@@ -23,8 +26,8 @@ app.use('/', (req, res, next) => {
   res.render('startScreen', { title: 'Welcoming Page', items: ['first point', 'second point'] });
 });
 
-app.use((req, res, next) => {
-  res.status(404).send(`<h1>Page not found</h1>`);
-});
+app.use(ErrorController.error404);
 
-app.listen(8000);
+connection.mongoConnect(() => {
+  app.listen(8000);
+});
