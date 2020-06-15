@@ -1,16 +1,16 @@
 const MongoClient = require('mongodb').MongoClient;
 let _db;
 
-const uri = 'mongodb+srv://vivaldi:orient1997@cluster0-intsd.mongodb.net/test?retryWrites=true&w=majority';
+const uri = 'mongodb://user:orient1@ds151544.mlab.com:51544/heroku_b3qhqhk6';
 
-const mongoConnect = callback => {
+const mongoConnect = (callback) => {
   MongoClient.connect(uri)
-    .then(client => {
+    .then((client) => {
       console.log('Connect');
       _db = client.db('my_database');
       callback();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('Error');
       throw err;
     });

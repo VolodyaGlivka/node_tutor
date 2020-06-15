@@ -11,20 +11,13 @@ const connection = require('./utils/database');
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: true
+    extended: true,
   })
 );
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'pug');
-app.set('views', 'views');
-
 app.use('/api/admin', Router);
-
-app.use('/', (req, res, next) => {
-  res.render('startScreen', { title: 'Welcoming Page', items: ['first point', 'second point'] });
-});
 
 app.use(ErrorController.error404);
 
