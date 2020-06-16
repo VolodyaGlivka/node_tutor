@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 let _db;
 
-const uri = 'mongodb://user:orient1@ds151544.mlab.com:51544/heroku_b3qhqhk6';
+const uri = 'mongodb://localhost:27017/my_database';
 
 const mongoConnect = (callback) => {
   MongoClient.connect(uri)

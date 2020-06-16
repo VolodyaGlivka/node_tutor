@@ -3,7 +3,7 @@ const router = express.Router();
 
 // controllers
 const BookController = require('../controllers/book');
-const UserController = require('../controllers/user');
+// const UserController = require('../controllers/user');
 const AuthController = require('../controllers/auth');
 
 router.get('/books', BookController.getBooks);
@@ -17,12 +17,12 @@ router.get('/books/:id', BookController.getBook);
 
 router.delete('/users/:id', BookController.deleteBook);
 
-router.get('/users', UserController.getUsers);
-router.post('/user', UserController.postUser);
-router.put('/user', UserController.putUser);
+// router.get('/users', UserController.getUsers);
+// router.post('/user', UserController.postUser);
+// router.put('/user', UserController.putUser);
 
-router.get('/user/:id', UserController.getUser);
+// router.get('/user/:id', UserController.getUser);
 
-router.delete('/user/:id', UserController.deleteUser);
+// router.delete('/user/:id', UserController.deleteUser);
 
 module.exports = router;
