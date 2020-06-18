@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 // Local packages
 const ErrorController = require('./controllers/error');
 const Router = require('./routes/admin');
+const AuthRouter = require('./routes/auth');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,7 +21,7 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/admin', Router);
-
+app.use('/api', AuthRouter);
 app.use(ErrorController.error404);
 
 mongoose
