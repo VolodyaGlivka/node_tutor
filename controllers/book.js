@@ -7,7 +7,7 @@ class BookController {
   static getBooks(req, res) {
     Book.find()
       .then((result) => {
-        res.send(result);
+        res.json({ result });
       })
       .catch((err) => {
         res.send(err);

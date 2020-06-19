@@ -26,51 +26,14 @@ class AuthController {
 
   static authCreateToken(user, res) {
     const payload = { user };
-    const login = user.login;
+    console.log('payload', payload);
     const token = Token.createToken(payload, 'secretToken', 'tokenLife');
     const refreshToken = Token.createToken(
       payload,
       'refreshTokenSecret',
       'refreshTokenLife'
     );
-    const newToken = new TokenModel({
-      login,
-      status: 'Logged in',
-      token: token,
-      refreshToken: refreshToken,
-    });
-    TokenModel.findOne({ login })
-      .then((userToken) => {
-        if (!userToken) {
-          newToken
-            .save()
-            .then(() => {
-              res.status(200).json({ token });
-            })
-            .catch((err) => {
-              res.send(err);
-            });
-        } else {
-          TokenModel.findOneAndUpdate(
-            { login },
-            {
-              login,
-              status: 'Logged in',
-              token: token,
-              refreshToken: refreshToken,
-            }
-          )
-            .then(() => {
-              res.status(200).json({ token });
-            })
-            .catch((err) => {
-              res.send(err);
-            });
-        }
-      })
-      .catch((err) => {
-        res.send(err);
-      });
+    res.status(200).json({ token, refreshToken });
   }
 
   static auth(req, res) {
@@ -94,6 +57,16 @@ class AuthController {
       .catch((err) => {
         res.send(err);
       });
+  }
+
+  static refreshToken(req, res) {
+    const { refreshToken } = req.body;
+    Token.verifyToken(refreshToken, 'refreshTokenSecret', (err, decoded) => {
+      if (err) {
+        return res.status(403).json('Invalid token provided');
+      }
+      AuthController.authCreateToken(decoded.user, res);
+    });
   }
 }
 
